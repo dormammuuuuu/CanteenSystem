@@ -24,7 +24,8 @@ Route::get('/', function () {
     ]);
 });
 
-
+Route::get('auth/facebook', 'App\Http\Controllers\SocialiteController@facebookRedirect')->name('facebook.auth');
+Route::get('auth/facebook/callback', 'App\Http\Controllers\SocialiteController@loginWithFacebook')->name('facebook.auth.callback');
 
 Route::middleware([
     'auth:sanctum',

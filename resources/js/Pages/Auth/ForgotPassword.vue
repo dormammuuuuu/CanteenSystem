@@ -54,7 +54,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="bg-orange-500 hover:bg-orange-700" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Email Password Reset Link
                 </PrimaryButton>
             </div>

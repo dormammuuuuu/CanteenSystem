@@ -40,9 +40,9 @@ const submit = () => {
         <template #auth-socialite>
             <p class="mb-2">Sign in with</p>
             <div class="grid grid-cols-3 gap-2 space-x-4">
-                <button class="border-gray-400 rounded-lg border-solid border-2 text-gray-500 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='google'></box-icon></button>
-                <button class="border-gray-400 rounded-lg border-solid border-2 text-gray-500 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='twitter'></box-icon></button>
-                <button class="border-gray-400 rounded-lg border-solid border-2 text-gray-500 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='facebook-circle'></box-icon></button>
+                <Link :href="route('login')" class="border-gray-400 rounded-lg border-solid border-2 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='google'></box-icon></Link>
+                <Link :href="route('login')" class="border-gray-400 rounded-lg border-solid border-2 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='twitter'></box-icon></Link>
+                <Link :href="route('facebook.auth.callback')" class="border-gray-400 rounded-lg border-solid border-2 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='facebook-circle'></box-icon></Link>
             </div> 
             <div class="flex items-center my-6">
                 <div class="flex-grow border-t border-gray-400"></div>
@@ -95,9 +95,14 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton class="w-full h-10 bg-orange-500 hover:bg-orange-700 flex justify-center" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="w-full h-10 bg-orange-500 hover:bg-orange-700 flex justify-center mb-6" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Sign in
                 </PrimaryButton>
+            </div>
+            <div class="text-center">
+                <Link :href="route('register')" class="text-sm">
+                    Don't have an account? <span class="text-orange-500 hover:text-orange-700">Register</span>
+                </Link>
             </div>
         </form>
     </AuthenticationCard>
