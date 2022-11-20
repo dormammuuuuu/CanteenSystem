@@ -41,7 +41,7 @@ const submit = () => {
             <p class="mb-2">Sign in with</p>
             <div class="grid grid-cols-3 gap-2 space-x-4">
                 <Link :href="route('login')" class="border-gray-400 rounded-lg border-solid border-2 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='google'></box-icon></Link>
-                <Link :href="route('login')" class="border-gray-400 rounded-lg border-solid border-2 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='twitter'></box-icon></Link>
+                <a href="/auth/twitter" class="border-gray-400 rounded-lg border-solid border-2 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='twitter'></box-icon></a>
                 <a href="/auth/facebook" class="border-gray-400 rounded-lg border-solid border-2 flex justify-center items-center py-2"><box-icon type='logo' color="gray" name='facebook-circle'></box-icon></a>
             </div> 
             <div class="flex items-center my-6">
