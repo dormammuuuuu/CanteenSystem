@@ -24,11 +24,14 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('auth/facebook', 'App\Http\Controllers\SocialiteController@facebookRedirect')->name('facebook.auth');
+Route::get('auth/facebook', 'App\Http\Controllers\SocialiteController@facebookRedirect')->name('facebook.auth')->middleware('guest');
 Route::get('auth/facebook/callback', 'App\Http\Controllers\SocialiteController@loginWithFacebook')->name('facebook.auth.callback');
 
-Route::get('auth/twitter', 'App\Http\Controllers\SocialiteController@twitterRedirect')->name('twitter.auth');
+Route::get('auth/twitter', 'App\Http\Controllers\SocialiteController@twitterRedirect')->name('twitter.auth')->middleware('guest');
 Route::get('auth/twitter/callback', 'App\Http\Controllers\SocialiteController@loginWithTwitter')->name('twitter.auth.callback');
+
+Route::get('auth/google', 'App\Http\Controllers\SocialiteController@googleRedirect')->name('google.auth')->middleware('guest');
+Route::get('auth/google/callback', 'App\Http\Controllers\SocialiteController@loginWithGoogle')->name('google.auth.callback');
 
 Route::middleware([
     'auth:sanctum',

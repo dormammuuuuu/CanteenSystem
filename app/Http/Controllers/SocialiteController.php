@@ -26,19 +26,23 @@ class SocialiteController extends Controller
             if($isUser){
                 $isUser->id = $user->id;
                 $isUser->save();
-                Auth::login($isUser);
-                return redirect()->route('dashboard')->with('success', 'Facebook Login Successful');
+                auth()->login($isUser);
+                session()->flash('flash.banner', 'Facebook login success!');
+                session()->flash('flash.bannerStyle', 'success');
+                return redirect('/dashboard');
             }else{
                 $createUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'facebook_id' => $user->id,
-                    'password' => bcrypt($user->name . Str::random(5)),
-                    'profile_photo_path' => $user->avatar,
+                    'password' => bcrypt(Str::random(10)),
                 ]);
-    
-                Auth::login($createUser);
-                return redirect('/dashboard')->with('success', 'Facebook login success! Please save your password. Password: ' . $createUser->password);
+                auth()->login($createUser);
+
+                session()->flash('flash.banner', 'Facebook login success! Your password was emailed to you.');
+                session()->flash('flash.bannerStyle', 'success');
+
+                return redirect('/dashboard');
             }
     
         } catch (\Throwable $th) {
@@ -56,23 +60,61 @@ class SocialiteController extends Controller
         try {
             $user = Socialite::driver('twitter-oauth-2')->user();
             $isUser = User::where('email', $user->email)->first();
-            // dd($user, $user->getEmail());
             if($isUser){
                 $isUser->id = $user->id;
                 $isUser->save();
-                Auth::login($isUser);
-                return redirect()->route('dashboard')->with('success', 'Twitter Login Successful');
+                auth()->login($isUser);
+                session()->flash('flash.banner', 'Twitter login success!');
+                session()->flash('flash.bannerStyle', 'success');
+                return redirect('/dashboard');
             }else{
                 $createUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'twitter_id' => $user->id,
-                    'password' => bcrypt($user->name . Str::random(5)),
-                    'profile_photo_path' => $user->avatar,
+                    'password' => bcrypt(Str::random(10)),
                 ]);
+                auth()->login($createUser);
+                session()->flash('flash.banner', 'Twitter login success! Your password was emailed to you.');
+                session()->flash('flash.bannerStyle', 'success');
+
+                return redirect('/dashboard');
+            }
     
-                Auth::login($createUser);
-                return redirect('/dashboard')->with('success', 'Twitter login success! Please save your password. Password: ' . $createUser->password);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function googleRedirect()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function loginWithGoogle()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+            $isUser = User::where('email', $user->email)->first();
+            if($isUser){
+                $isUser->id = $user->id;
+                $isUser->save();
+                auth()->login($isUser);
+                session()->flash('flash.banner', 'Google login success!');
+                session()->flash('flash.bannerStyle', 'success');
+                return redirect('/dashboard');
+            }else{
+                $createUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'google_id' => $user->id,
+                    'password' => bcrypt(Str::random(10)),
+                ]);
+                auth()->login($createUser);
+                session()->flash('flash.banner', 'Google login success! Your password was emailed to you.');
+                session()->flash('flash.bannerStyle', 'success');
+
+                return redirect('/dashboard');
             }
     
         } catch (\Throwable $th) {
