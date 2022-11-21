@@ -39,9 +39,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', 'App\Http\Controllers\FoodController@dashboard')->name('dashboard');
     Route::get('/listings', 'App\Http\Controllers\FoodController@listings')->name('listings');
     Route::post('/tmp/images/', 'App\Http\Controllers\FileUploadController@store')->name('images.tmp');
     Route::get('/food/get/', 'App\Http\Controllers\FoodController@read')->name('food.read');

@@ -49,6 +49,13 @@ class FoodController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function dashboard() {
+        $data = [
+            'listings' => FoodItem::where('owner', auth()->user()->id)->get(),
+        ];
+        return Inertia::render('Dashboard', $data);
+    }
+
     public function listings() {
         $data = [
             'listings' => FoodItem::where('owner', auth()->user()->id)->get(),
